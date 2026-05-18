@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rishi Raj Sahu — Product</title>
+<meta name="description" content="Product portfolio of Rishi Raj Sahu — analytics-native PM building toward AI-native product work.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --ink: #14181c;             /* cool graphite */
+  --ink-soft: #3d454e;
+  --ink-faint: #7a828c;
+  --paper: #f0eee8;           /* bone / cool ivory */
+  --paper-tint: #f7f5ef;
+  --accent: #a93f1f;          /* deeper terracotta-brick */
+  --accent-wash: #e6d2c4;
+  --rule: #cfc9bd;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'DM Sans', -apple-system, sans-serif;
+  font-size: 17px;
+  line-height: 1.6;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  background-image:
+    radial-gradient(ellipse at top left, rgba(169, 63, 31, 0.04) 0px, transparent 55%),
+    radial-gradient(ellipse at bottom right, rgba(20, 24, 28, 0.03) 0px, transparent 55%);
+  min-height: 100vh;
+}
+
+/* Faint vignette to keep edges from feeling cold */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background: radial-gradient(ellipse at center, transparent 50%, rgba(240, 238, 232, 0.35) 100%);
+}
+
+.container {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 48px;
+  position: relative;
+  z-index: 2;
+}
+
+/* ---------- NAV ---------- */
+nav {
+  padding: 36px 0 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+nav .mark {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-weight: 500;
+  font-size: 36px;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--ink);
+}
+nav .meta { color: var(--ink-faint); }
+
+/* ---------- HERO ---------- */
+.hero {
+  padding: 120px 0 80px;
+  position: relative;
+}
+
+.hero .kicker {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 32px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.hero .kicker::before {
+  content: '';
+  width: 36px;
+  height: 1px;
+  background: var(--accent);
+}
+
+.hero h1 {
+  font-family: 'Fraunces', serif;
+  font-weight: 400;
+  font-size: clamp(56px, 9vw, 124px);
+  line-height: 0.95;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+  margin-bottom: 32px;
+  font-variation-settings: "opsz" 144;
+}
+.hero h1 em {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--accent);
+}
+
+.hero .pitch {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(20px, 2.4vw, 28px);
+  line-height: 1.45;
+  font-weight: 400;
+  color: var(--ink-soft);
+  max-width: 720px;
+  font-variation-settings: "opsz" 36;
+}
+.hero .pitch strong {
+  color: var(--ink);
+  font-weight: 500;
+  font-style: italic;
+}
+
+/* small decorative ornament */
+.ornament {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 80px 0 64px;
+  gap: 14px;
+}
+.ornament .line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--rule), transparent);
+  max-width: 220px;
+}
+.ornament svg { color: var(--accent); }
+
+/* ---------- SECTION HEADERS ---------- */
+.section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 56px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--rule);
+}
+.section-head h2 {
+  font-family: 'Fraunces', serif;
+  font-weight: 400;
+  font-style: italic;
+  font-size: 52px;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.section-head .count {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  color: var(--ink-faint);
+  text-transform: uppercase;
+}
+
+/* ---------- ABOUT ---------- */
+.about {
+  padding: 40px 0 80px;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 80px;
+  align-items: start;
+}
+.about .label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  padding-top: 8px;
+}
+.about p {
+  font-size: 18px;
+  line-height: 1.7;
+  color: var(--ink-soft);
+  margin-bottom: 20px;
+}
+.about p:last-child { margin-bottom: 0; }
+.about p strong { color: var(--ink); font-weight: 500; }
+
+/* ---------- WORK ---------- */
+.work { padding: 40px 0 80px; }
+
+.project-list {
+  list-style: none;
+  border-top: 1px solid var(--rule);
+}
+
+.project {
+  border-bottom: 1px solid var(--rule);
+  padding: 36px 0;
+  transition: padding 0.4s ease;
+}
+
+.project-row {
+  display: grid;
+  grid-template-columns: 90px 1fr auto;
+  gap: 32px;
+  align-items: start;
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.3s ease;
+}
+
+.project-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--ink-faint);
+  padding-top: 10px;
+  letter-spacing: 0.04em;
+}
+
+.project-title-block { padding-top: 4px; }
+
+.project-tags {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+.project-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: var(--accent-wash);
+  padding: 4px 10px;
+  border-radius: 100px;
+}
+
+.project-title {
+  font-family: 'Fraunces', serif;
+  font-weight: 400;
+  font-size: clamp(28px, 3.6vw, 42px);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  margin-bottom: 8px;
+  transition: color 0.3s ease;
+  font-variation-settings: "opsz" 60;
+}
+.project-row:hover .project-title { color: var(--accent); }
+
+.project-subtitle {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 17px;
+  color: var(--ink-faint);
+  font-weight: 400;
+}
+
+.project-toggle {
+  padding-top: 16px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: color 0.3s ease;
+  white-space: nowrap;
+}
+.project-row:hover .project-toggle { color: var(--accent); }
+
+.project-toggle .plus {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  position: relative;
+  transition: transform 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+}
+.project-toggle .plus::before,
+.project-toggle .plus::after {
+  content: '';
+  position: absolute;
+  background: currentColor;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+.project-toggle .plus::before { width: 14px; height: 1.5px; }
+.project-toggle .plus::after { width: 1.5px; height: 14px; transition: transform 0.4s cubic-bezier(0.65, 0, 0.35, 1); transform: translate(-50%, -50%) scaleY(1); }
+
+.project.open .project-toggle .plus::after { transform: translate(-50%, -50%) scaleY(0); }
+.project.open .project-toggle .plus { transform: rotate(90deg); }
+.project.open .project-toggle { color: var(--accent); }
+
+.project-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.6s cubic-bezier(0.65, 0, 0.35, 1), opacity 0.5s ease, margin 0.4s ease;
+  opacity: 0;
+  margin-top: 0;
+}
+.project.open .project-body {
+  max-height: 800px;
+  opacity: 1;
+  margin-top: 28px;
+}
+
+.project-body-inner {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  gap: 32px;
+}
+.project-body-spacer { /* aligns with num column */ }
+
+.project-summary {
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--ink-soft);
+  max-width: 720px;
+  margin-bottom: 28px;
+}
+.project-summary strong { color: var(--ink); font-weight: 500; }
+
+.project-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 22px;
+  background: var(--ink);
+  color: var(--paper-tint);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 100px;
+  transition: all 0.3s ease;
+}
+.project-cta:hover {
+  background: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(184, 69, 31, 0.25);
+}
+.project-cta svg { transition: transform 0.3s ease; }
+.project-cta:hover svg { transform: translate(2px, -2px); }
+
+/* ---------- FOOTER / CONTACT ---------- */
+.contact {
+  margin-top: 120px;
+  padding: 100px 0 80px;
+  position: relative;
+  border-top: 1px solid var(--rule);
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: end;
+}
+
+.contact h3 {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(40px, 6vw, 76px);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin-bottom: 24px;
+}
+.contact h3 em {
+  color: var(--accent);
+  font-style: italic;
+}
+
+.contact p {
+  font-size: 18px;
+  color: var(--ink-soft);
+  line-height: 1.6;
+  max-width: 440px;
+}
+
+.contact-links {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.contact-link {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--rule);
+  text-decoration: none;
+  color: var(--ink);
+  transition: all 0.3s ease;
+}
+.contact-link:hover {
+  border-color: var(--accent);
+  padding-left: 8px;
+}
+.contact-link .label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  transition: color 0.3s ease;
+}
+.contact-link:hover .label { color: var(--accent); }
+.contact-link .value {
+  font-family: 'Fraunces', serif;
+  font-size: 19px;
+  font-style: italic;
+}
+
+.footer-meta {
+  margin-top: 80px;
+  padding-top: 32px;
+  border-top: 1px solid var(--rule);
+  display: flex;
+  justify-content: space-between;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+/* ---------- TOOLS ---------- */
+.tools {
+  padding: 40px 0 80px;
+}
+
+.tools-category {
+  padding: 40px 0;
+  border-bottom: 1px solid var(--rule);
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 56px;
+  align-items: start;
+}
+.tools-category:first-of-type {
+  border-top: 1px solid var(--rule);
+}
+
+.tools-category-label {
+  position: sticky;
+  top: 32px;
+}
+.tools-category-label .num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--ink-faint);
+  letter-spacing: 0.1em;
+  display: block;
+  margin-bottom: 8px;
+}
+.tools-category-label .name {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 26px;
+  line-height: 1.15;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+
+.tools-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px 32px;
+}
+
+.tool {
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  gap: 18px;
+  padding: 18px 0;
+  border-bottom: 1px dotted var(--rule);
+  align-items: center;
+  transition: padding 0.3s ease;
+}
+.tool:hover { padding-left: 4px; }
+.tool:last-child {
+  border-bottom: none;
+}
+/* For 2-column grids with even count, also hide second-to-last */
+.tools-grid:has(> .tool:nth-child(even):last-child) .tool:nth-last-child(2) {
+  border-bottom: none;
+}
+
+.tool-logo {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--paper-tint);
+  border-radius: 8px;
+  padding: 5px;
+  box-shadow: 0 1px 2px rgba(20, 24, 28, 0.04);
+  flex-shrink: 0;
+}
+.tool-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.tool-logo.letter {
+  font-family: 'Fraunces', serif;
+  font-weight: 500;
+  font-size: 16px;
+  color: var(--ink);
+  background: var(--accent-wash);
+  padding: 0;
+}
+
+.tool-body { min-width: 0; }
+.tool-name {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--ink);
+  letter-spacing: -0.005em;
+  line-height: 1.2;
+  margin-bottom: 3px;
+}
+.tool-use {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 14px;
+  color: var(--ink-soft);
+  line-height: 1.4;
+}
+
+/* ---------- ANIMATIONS ---------- */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.hero .kicker { animation: fadeUp 0.8s ease 0.1s both; }
+.hero h1 { animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.25s both; }
+.hero .pitch { animation: fadeUp 1s ease 0.55s both; }
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 760px) {
+  .container { padding: 0 24px; }
+  nav { padding: 24px 0 0; }
+  .hero { padding: 70px 0 50px; }
+  .hero .kicker { margin-bottom: 24px; }
+  .about { grid-template-columns: 1fr; gap: 16px; padding: 30px 0 60px; }
+  .about .label { padding-top: 0; }
+  .section-head h2 { font-size: 36px; }
+  .section-head { margin-bottom: 36px; }
+  .ornament { margin: 50px 0 40px; }
+
+  .project { padding: 28px 0; }
+  .project-row { grid-template-columns: 48px 1fr auto; gap: 16px; }
+  .project-num { padding-top: 8px; font-size: 16px; }
+  .project-title-block { padding-top: 2px; }
+  .project-subtitle { font-size: 15px; }
+  .project-toggle { padding-top: 10px; font-size: 10px; gap: 6px; }
+  .project-toggle span:not(.plus) { display: none; }
+  .project-body-inner { grid-template-columns: 1fr; gap: 0; }
+  .project-body-spacer { display: none; }
+
+  .contact { margin-top: 60px; padding: 50px 0 40px; }
+  .contact-grid { grid-template-columns: 1fr; gap: 36px; }
+  .footer-meta { flex-direction: column; gap: 8px; margin-top: 40px; }
+
+  .tools-category {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 32px 0;
+  }
+  .tools-category-label { position: static; }
+  .tools-category-label .name { font-size: 22px; }
+  .tools-grid { grid-template-columns: 1fr; gap: 0; }
+  .tools-grid .tool { border-bottom: 1px dotted var(--rule); }
+  .tools-grid .tool:last-child { border-bottom: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <nav>
+    <div class="mark">Rishi Raj Sahu</div>
+    <div class="meta">Portfolio &middot; 2026</div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="kicker">Product · Analytics · AI</div>
+    <h1>Building products that <em>learn from data</em>, not assumptions.</h1>
+    <p class="pitch">
+      I'm a product practitioner with <strong>6+ years across B2C e-commerce</strong>, currently at Victoria's Secret &mdash; where I write PRDs, run A/B experiments at million-user scale, and shape roadmap from funnel and cohort data. Building toward AI-native PM roles, with a portfolio that pairs rigorous analytics with sharp product thinking.
+    </p>
+  </section>
+
+  <div class="ornament">
+    <div class="line"></div>
+    <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+      <path d="M11 2 L13 9 L20 11 L13 13 L11 20 L9 13 L2 11 L9 9 Z" fill="currentColor" opacity="0.85"/>
+    </svg>
+    <div class="line"></div>
+  </div>
+
+  <!-- ABOUT -->
+  <section class="about">
+    <div class="label">About</div>
+    <div>
+      <p>
+        I came up through <strong>Adobe Analytics</strong> &mdash; first as a support engineer at Adobe, then as a consultant at Capgemini, and now as a product analyst at <strong>Victoria's Secret</strong>, where I own digital instrumentation, experimentation, and KPI strategy across Checkout, PDP, PLP, and Accounts on web and mobile.
+      </p>
+      <p>
+        That background gives me an unusual edge for PM work: I don't need a separate analytics team to validate a hypothesis, scope an MVP, or read a funnel. The projects below are how I'm sharpening the rest of the craft &mdash; <strong>PRD writing, prioritisation, system design, UX evaluation, and growth strategy</strong>.
+      </p>
+    </div>
+  </section>
+
+  <!-- WORK -->
+  <section class="work">
+    <div class="section-head">
+      <h2>Selected work</h2>
+      <div class="count">06 case studies</div>
+    </div>
+
+    <ul class="project-list">
+
+      <li class="project" data-index="01">
+        <div class="project-row" onclick="toggleProject(this)">
+          <div class="project-num">01</div>
+          <div class="project-title-block">
+            <div class="project-tags">
+              <span class="project-tag">Product Strategy</span>
+              <span class="project-tag">OKRs</span>
+              <span class="project-tag">Cohort Analysis</span>
+            </div>
+            <h3 class="project-title">Zomato Tier-3 Cities</h3>
+            <div class="project-subtitle">An annual strategy for habit formation in low-trust, thin-supply markets</div>
+          </div>
+          <div class="project-toggle"><span>Read</span><span class="plus"></span></div>
+        </div>
+        <div class="project-body">
+          <div class="project-body-inner">
+            <div class="project-body-spacer"></div>
+            <div>
+              <p class="project-summary">
+                Built a full annual <strong>OKR framework</strong> targeting Weekly Transacting Users in Tier-3 India, anchored on M1 retention (25% &rarr; 42%) and orders per MAU (2.2 &rarr; 3.8). Pairs a unified funnel diagnostic across 6 stages with cohort retention analysis exposing where discount-driven users collapse and why new-user retention at 14% makes acquisition structurally unsustainable.
+              </p>
+              <a class="project-cta" href="./pdfs/zomato-tier3-strategy.pdf" target="_blank" rel="noopener">
+                Open PDF
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10 L10 2 M10 2 H4 M10 2 V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <li class="project" data-index="02">
+        <div class="project-row" onclick="toggleProject(this)">
+          <div class="project-num">02</div>
+          <div class="project-title-block">
+            <div class="project-tags">
+              <span class="project-tag">PRD</span>
+              <span class="project-tag">Retention</span>
+              <span class="project-tag">Experimentation</span>
+            </div>
+            <h3 class="project-title">Vitafit &mdash; Retention &amp; Engagement</h3>
+            <div class="project-subtitle">A PRD for two engagement bets on a live fitness platform</div>
+          </div>
+          <div class="project-toggle"><span>Read</span><span class="plus"></span></div>
+        </div>
+        <div class="project-body">
+          <div class="project-body-inner">
+            <div class="project-body-spacer"></div>
+            <div>
+              <p class="project-summary">
+                End-to-end <strong>PRD</strong> for two engagement bets &mdash; a Gamification &amp; Streaks Engine and a Community Challenge Hub &mdash; each written with problem, evidence, success metrics, guardrails, phased A/B plan, and timeline. Targets the D14 / D30 retention drop-offs caused by motivation decay and the absence of any social accountability layer, with full user-flow diagrams for both features.
+              </p>
+              <a class="project-cta" href="./pdfs/vitafit-engagement-prd.pdf" target="_blank" rel="noopener">
+                Open PDF
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10 L10 2 M10 2 H4 M10 2 V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <li class="project" data-index="03">
+        <div class="project-row" onclick="toggleProject(this)">
+          <div class="project-num">03</div>
+          <div class="project-title-block">
+            <div class="project-tags">
+              <span class="project-tag">System Design</span>
+              <span class="project-tag">Recommender</span>
+              <span class="project-tag">Trade-offs</span>
+            </div>
+            <h3 class="project-title">Personalised Learning Recommendations</h3>
+            <div class="project-subtitle">Product design doc for an adaptive course recommendation engine</div>
+          </div>
+          <div class="project-toggle"><span>Read</span><span class="plus"></span></div>
+        </div>
+        <div class="project-body">
+          <div class="project-body-inner">
+            <div class="project-body-spacer"></div>
+            <div>
+              <p class="project-summary">
+                System-level <strong>product design document</strong> for an adaptive learning recommender across learners, instructors, and admins: 15 user stories laddered to three business KPIs, twelve prioritised features, a full non-functional spec, and a four-layer architecture diagram. Closes with a three-way trade-off analysis &mdash; <em>personalisation depth vs real-time performance vs privacy</em> &mdash; and the reasoning for treating privacy as a hard boundary, not a dial to tune.
+              </p>
+              <a class="project-cta" href="./pdfs/learning-recommender-design.pdf" target="_blank" rel="noopener">
+                Open PDF
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10 L10 2 M10 2 H4 M10 2 V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <li class="project" data-index="04">
+        <div class="project-row" onclick="toggleProject(this)">
+          <div class="project-num">04</div>
+          <div class="project-title-block">
+            <div class="project-tags">
+              <span class="project-tag">UX Evaluation</span>
+              <span class="project-tag">Heuristics</span>
+              <span class="project-tag">Redesign</span>
+            </div>
+            <h3 class="project-title">Zomato Checkout &mdash; UX Evaluation</h3>
+            <div class="project-subtitle">A heuristic teardown of the Android food-ordering flow</div>
+          </div>
+          <div class="project-toggle"><span>Read</span><span class="plus"></span></div>
+        </div>
+        <div class="project-body">
+          <div class="project-body-inner">
+            <div class="project-body-spacer"></div>
+            <div>
+              <p class="project-summary">
+                Heuristic evaluation of Zomato's end-to-end <strong>Android checkout flow</strong> across five screens, mapping every issue to Nielsen's 10 heuristics plus Hick's, Fitts's, and Jakob's laws, with severity ratings. Closes with five prioritised <strong>before/after redesign recommendations</strong> &mdash; each tied to the violated principle and an estimated conversion impact.
+              </p>
+              <a class="project-cta" href="./pdfs/zomato-ux-evaluation.pdf" target="_blank" rel="noopener">
+                Open PDF
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10 L10 2 M10 2 H4 M10 2 V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <li class="project" data-index="05">
+        <div class="project-row" onclick="toggleProject(this)">
+          <div class="project-num">05</div>
+          <div class="project-title-block">
+            <div class="project-tags">
+              <span class="project-tag">Growth</span>
+              <span class="project-tag">AARRR</span>
+              <span class="project-tag">RICE</span>
+            </div>
+            <h3 class="project-title">Twitter / X &mdash; Growth Opportunities</h3>
+            <div class="project-subtitle">AARRR-led growth strategy targeting premium and D30 retention</div>
+          </div>
+          <div class="project-toggle"><span>Read</span><span class="plus"></span></div>
+        </div>
+        <div class="project-body">
+          <div class="project-body-inner">
+            <div class="project-body-spacer"></div>
+            <div>
+              <p class="project-summary">
+                Full <strong>AARRR funnel breakdown</strong> of X across four personas (Gen Z creators, public figures, premium subscribers, new users), exposing the largest drops at Activation and Retention &rarr; Revenue. Proposes four product epics &mdash; including persona-based smart onboarding and a premium trial trigger engine &mdash; and prioritises them via <strong>RICE</strong>, with Persona Onboarding winning at 108.
+              </p>
+              <a class="project-cta" href="./pdfs/twitter-x-aarrr-growth.pdf" target="_blank" rel="noopener">
+                Open PDF
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10 L10 2 M10 2 H4 M10 2 V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <li class="project" data-index="06">
+        <div class="project-row" onclick="toggleProject(this)">
+          <div class="project-num">06</div>
+          <div class="project-title-block">
+            <div class="project-tags">
+              <span class="project-tag">Segmentation</span>
+              <span class="project-tag">Prioritisation</span>
+              <span class="project-tag">Roadmap</span>
+            </div>
+            <h3 class="project-title">Zepto &mdash; AOV Optimisation Strategy</h3>
+            <div class="project-subtitle">Basket expansion strategy targeting 20&ndash;30% AOV uplift</div>
+          </div>
+          <div class="project-toggle"><span>Read</span><span class="plus"></span></div>
+        </div>
+        <div class="project-body">
+          <div class="project-body-inner">
+            <div class="project-body-spacer"></div>
+            <div>
+              <p class="project-summary">
+                Segmentation-led basket expansion strategy: maps <strong>five user archetypes</strong> to AOV contribution, identifies five structural blockers (urgency mindset, free-delivery ceiling, weak discovery, generic recommendations, order fragmentation), and recommends three interventions. The Tiered Reward Ladder wins <strong>RICE at 115.2</strong> and anchors a 0&ndash;6 month roadmap projecting 20&ndash;30% AOV uplift, each phase tied to primary KPIs and guardrails.
+              </p>
+              <a class="project-cta" href="./pdfs/zepto-aov-strategy.pdf" target="_blank" rel="noopener">
+                Open PDF
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10 L10 2 M10 2 H4 M10 2 V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </li>
+
+    </ul>
+  </section>
+
+  <!-- TOOLS -->
+  <section class="tools">
+    <div class="section-head">
+      <h2>Tools of the trade</h2>
+      <div class="count">14 tools &middot; 4 categories</div>
+    </div>
+
+    <div class="tools-category">
+      <div class="tools-category-label">
+        <span class="num">01 / 04</span>
+        <div class="name">Analytics &amp; Data</div>
+      </div>
+      <div class="tools-grid">
+        <div class="tool">
+          <div class="tool-logo"><img src="https://cdn.simpleicons.org/adobe/FA0F00" alt="Adobe Analytics logo" loading="lazy" onerror="this.parentElement.classList.add('letter');this.parentElement.textContent='Aa';"></div>
+          <div class="tool-body">
+            <div class="tool-name">Adobe Analytics</div>
+            <div class="tool-use">Funnel diagnostics, segment behaviour, A/B read-outs</div>
+          </div>
+        </div>
+        <div class="tool">
+          <div class="tool-logo"><img src="https://cdn.simpleicons.org/mysql/4479A1" alt="SQL logo" loading="lazy" onerror="this.parentElement.classList.add('letter');this.parentElement.textContent='SQL';"></div>
+          <div class="tool-body">
+            <div class="tool-name">SQL</div>
+            <div class="tool-use">Cohort pulls, validation queries, ad-hoc deep dives</div>
+          </div>
+        </div>
+        <div class="tool">
+          <div class="tool-logo"><img src="https://cdn.simpleicons.org/snowflake/29B5E8" alt="Snowflake logo" loading="lazy" onerror="this.parentElement.classList.add('letter');this.parentElement.textContent='Sn';"></div>
+          <div class="tool-body">
+            <div class="tool-name">Snowflake</div>
+            <div class="tool-use">Warehouse queries for behavioural and revenue data</div>
+          </div>
+        </div>
+        <div class="tool">
+          <div class="tool-logo"><img src="https://cdn.simpleicons.org/googleanalytics/E37400" alt="Google Analytics logo" loading="lazy" onerror="this.parentElement.classList.add('letter');this.parentElement.textContent='GA';"></div>
+          <div class="tool-body">
+            <div class="tool-name">Google Analytics</div>
+            <div class="tool-use">Cross-platform traffic and conversion benchmarking</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tools-category">
+      <div class="tools-category-label">
+        <span class="num">02 / 04</span>
+        <div class="name">Product &amp; Delivery</div>
+      </div>
+      <div class="tools-grid">
+        <div class="tool">
+          <div class="tool-logo"><img src="https://cdn.simpleicons.org/jira/0052CC" alt="Jira logo" loading="lazy" onerror="this.parentElement.classList.add('letter');this.parentElement.textContent='Ji';"></div>
+          <div class="tool-body">
+            <div class="tool-name">Jira</div>
+            <div class="tool-use">Backlog grooming, sprint planning, ticket ownership</div>
+          </div>
+        </div>
+        <div class="tool">
+          <div class="tool-logo"><img src="https://cdn.simpleicons.org/confluence/172B4D" alt="Confluence logo" loading="lazy" onerror="this.parentElement.classList.add('letter');this.parentElement.textContent='Co';"></div>
+          <div class="tool-body">
+            <div class="tool-name">Confluence</div>
+            <div class="tool-use">PRDs, decision logs, cross-functional documentation</div>
+          </div>
+        </div>
+        <div class="tool">
+          <div class="tool-logo letter">Tq</div>
+          <div class="tool-body">
+            <div class="tool-name">Tealium IQ</div>
+            <div class="tool-use">Tag management and data layer instrumentation</div>
+          </div>
+        </div>
+        <div class="tool">
+          <div class="tool-logo"><img src="https://cdn.simpleicons.org/microsoftexcel/217346" alt="Excel logo" loading="lazy" onerror="this.parentElement.classList.add('letter');this.parentElement.textContent='Xl';"></div>
+          <div class="tool-body">
+            <div class="tool-name">Excel</div>
+            <div class="tool-use">Scorecards, prioritisation matrices, exec dashboards</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tools-category">
+      <div class="tools-category-label">
+        <span class="num">03 / 04</span>
+        <div class="name">Design &amp; Collaboration</div>
+      </div>
+      <div class="tools-grid">
+        <div class="tool">
+          <div class="tool-logo"><img src="https://cdn.simpleicons.org/figma/F24E1E" alt="Figma logo" loading="lazy" onerror="this.parentElement.classList.add('letter');this.parentElement.textContent='Fi';"></div>
+          <div class="tool-body">
+            <div class="tool-name">Figma</div>
+            <div class="tool-use">Wireframes, design reviews, dev handoff alignment</div>
+          </div>
+        </div>
+        <div class="tool">
+          <div class="tool-logo"><img src="https://cdn.simpleicons.org/miro/FFD02F" alt="Miro logo" loading="lazy" onerror="this.parentElement.classList.add('letter');this.parentElement.textContent='Mi';"></div>
+          <div class="tool-body">
+            <div class="tool-name">Miro</div>
+            <div class="tool-use">User flows, opportunity trees, workshop facilitation</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tools-category">
+      <div class="tools-category-label">
+        <span class="num">04 / 04</span>
+        <div class="name">AI &amp; Prototyping</div>
+      </div>
+      <div class="tools-grid">
+        <div class="tool">
+          <div class="tool-logo"><img src="https://cdn.simpleicons.org/anthropic/D97757" alt="Claude logo" loading="lazy" onerror="this.parentElement.classList.add('letter');this.parentElement.textContent='Cl';"></div>
+          <div class="tool-body">
+            <div class="tool-name">Claude</div>
+            <div class="tool-use">PRD drafting, strategy reviews, structured thinking</div>
+          </div>
+        </div>
+        <div class="tool">
+          <div class="tool-logo"><img src="https://cdn.simpleicons.org/openai/000000" alt="ChatGPT logo" loading="lazy" onerror="this.parentElement.classList.add('letter');this.parentElement.textContent='Ch';"></div>
+          <div class="tool-body">
+            <div class="tool-name">ChatGPT</div>
+            <div class="tool-use">Research synthesis, competitive scans, copy iteration</div>
+          </div>
+        </div>
+        <div class="tool">
+          <div class="tool-logo letter">Cu</div>
+          <div class="tool-body">
+            <div class="tool-name">Cursor</div>
+            <div class="tool-use">Lightweight prototyping for product validation</div>
+          </div>
+        </div>
+        <div class="tool">
+          <div class="tool-logo letter">Bo</div>
+          <div class="tool-body">
+            <div class="tool-name">Bolt &middot; Lovable</div>
+            <div class="tool-use">Click-through prototypes for stakeholder demos</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact">
+    <div class="contact-grid">
+      <div>
+        <h3>Let's <em>talk shop</em>.</h3>
+        <p>Open to PM and AI-PM conversations at product companies. Happiest when there's a funnel to fix, a roadmap to defend, or an experiment to ship.</p>
+      </div>
+      <div class="contact-links">
+        <a class="contact-link" href="mailto:rrjsahu@outlook.com">
+          <span class="label">Email</span>
+          <span class="value">rrjsahu@outlook.com</span>
+        </a>
+        <a class="contact-link" href="https://linkedin.com/in/rishi-raj-sahu" target="_blank" rel="noopener">
+          <span class="label">LinkedIn</span>
+          <span class="value">/in/rishi-raj-sahu</span>
+        </a>
+      </div>
+    </div>
+    <div class="footer-meta">
+      <div>&copy; 2026 Rishi Raj Sahu</div>
+      <div>Noida &middot; India</div>
+    </div>
+  </section>
+
+</div>
+
+<script>
+function toggleProject(row) {
+  const project = row.parentElement;
+  const wasOpen = project.classList.contains('open');
+
+  // Optional: close other open projects for an accordion feel
+  document.querySelectorAll('.project.open').forEach(p => {
+    if (p !== project) p.classList.remove('open');
+  });
+
+  project.classList.toggle('open');
+
+  // Smooth scroll into view when opening (only if user clicked, not on load)
+  if (!wasOpen) {
+    setTimeout(() => {
+      const rect = project.getBoundingClientRect();
+      if (rect.top < 80) {
+        window.scrollBy({ top: rect.top - 80, behavior: 'smooth' });
+      }
+    }, 100);
+  }
+}
+
+// Keyboard accessibility: enter/space on project row
+document.querySelectorAll('.project-row').forEach(row => {
+  row.setAttribute('tabindex', '0');
+  row.setAttribute('role', 'button');
+  row.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      toggleProject(row);
+    }
+  });
+});
+</script>
+
+</body>
+</html>
