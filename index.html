@@ -450,6 +450,103 @@ nav .meta { color: var(--ink-faint); }
   color: var(--ink-faint);
 }
 
+/* ---------- 0 → 1 BUILDS ---------- */
+.builds { padding: 40px 0 80px; }
+
+.build-list {
+  list-style: none;
+  border-top: 1px solid var(--rule);
+}
+
+.build {
+  border-bottom: 1px solid var(--rule);
+  padding: 40px 0;
+  display: grid;
+  grid-template-columns: 90px 1fr auto;
+  gap: 32px;
+  align-items: start;
+}
+
+.build-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--ink-faint);
+  padding-top: 10px;
+  letter-spacing: 0.04em;
+}
+
+.build-body { padding-top: 4px; }
+
+.build-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.build-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: var(--accent-wash);
+  padding: 4px 10px;
+  border-radius: 100px;
+}
+
+.build-status {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  border: 1px solid var(--rule);
+  padding: 4px 10px;
+  border-radius: 100px;
+}
+
+.build-name {
+  font-family: 'Fraunces', serif;
+  font-weight: 400;
+  font-size: clamp(28px, 3.6vw, 42px);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  margin-bottom: 8px;
+  font-variation-settings: "opsz" 60;
+}
+
+.build-oneliner {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 17px;
+  color: var(--ink-faint);
+  font-weight: 400;
+  margin-bottom: 16px;
+  max-width: 640px;
+}
+
+.build-story {
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--ink-soft);
+  max-width: 640px;
+  margin-bottom: 24px;
+}
+
+.build-cta {
+  padding-top: 16px;
+}
+
+@media (max-width: 760px) {
+  .build { grid-template-columns: 48px 1fr; gap: 16px; }
+  .build-num { font-size: 16px; padding-top: 8px; }
+  .build-cta { grid-column: 2; padding-top: 0; }
+}
+
 /* ---------- TOOLS ---------- */
 .tools {
   padding: 40px 0 80px;
@@ -826,6 +923,52 @@ nav .meta { color: var(--ink-faint); }
               </p>
               <a class="project-cta" href="./pdfs/zepto-aov-strategy.pdf" target="_blank" rel="noopener">
                 Open PDF
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10 L10 2 M10 2 H4 M10 2 V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </li>
+
+    </ul>
+  </section>
+
+  <!-- 0 → 1 BUILDS -->
+  <section class="builds">
+    <div class="section-head">
+      <h2>0 &rarr; 1 builds</h2>
+      <div class="count">01 prototype</div>
+    </div>
+
+    <ul class="build-list">
+
+      <li class="project">
+        <div class="project-row" onclick="toggleProject(this)">
+          <div class="project-num">01</div>
+          <div class="project-title-block">
+            <div class="project-tags">
+              <span class="project-tag">Claude</span>
+              <span class="project-tag">Figma</span>
+              <span class="project-tag">GitHub Pages</span>
+              <span class="build-status">Prototype</span>
+            </div>
+            <h3 class="project-title">WiseTransact</h3>
+            <div class="project-subtitle">Most people's financial year already lives in their SMS inbox — WiseTransact turns it into a CA-ready PDF</div>
+          </div>
+          <div class="project-toggle"><span>Read</span><span class="plus"></span></div>
+        </div>
+        <div class="project-body">
+          <div class="project-body-inner">
+            <div class="project-body-spacer"></div>
+            <div>
+              <p class="project-summary">
+                Freelancers and salaried professionals with multiple income streams spend hours reconstructing their financial year from memory, bank portals, and forwarded messages — then hand their CA a half-built spreadsheet. The insight was simple: <strong>the data isn't missing, it's in SMS.</strong> WiseTransact reads those messages, categorizes inflows and outflows, and exports a clean, structured PDF your CA can work with immediately.
+              </p>
+              <p class="project-summary">
+                Owned end-to-end: identified the problem, defined the output before designing the input, built brand guidelines and a typography system in Figma, prototyped the working product with Claude, and shipped via GitHub Pages.
+              </p>
+              <a class="project-cta" href="https://rsahu27.github.io/wiseTransact/" target="_blank" rel="noopener">
+                View demo
                 <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10 L10 2 M10 2 H4 M10 2 V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
               </a>
             </div>
