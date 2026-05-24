@@ -12,14 +12,15 @@
 
 <style>
 :root {
-  --ink: #14181c;             /* cool graphite */
-  --ink-soft: #3d454e;
-  --ink-faint: #7a828c;
-  --paper: #f0eee8;           /* bone / cool ivory */
-  --paper-tint: #f7f5ef;
-  --accent: #a93f1f;          /* deeper terracotta-brick */
-  --accent-wash: #e6d2c4;
-  --rule: #cfc9bd;
+  --ink: #0d1117;              /* near-black text */
+  --ink-soft: #3d4f63;         /* secondary text */
+  --ink-faint: #8fa3ba;        /* tertiary / muted */
+  --paper: #f0f5fb;            /* light tech blue-white */
+  --paper-tint: #e3ecf6;       /* slightly deeper panel */
+  --accent: #1d6ae5;           /* electric blue */
+  --accent-bright: #3b82f6;    /* brighter blue on hover */
+  --accent-wash: rgba(29, 106, 229, 0.07);
+  --rule: #d0dcea;             /* light blue-gray border */
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -27,7 +28,7 @@
 html { scroll-behavior: smooth; }
 
 body {
-  background: var(--paper);
+  background-color: var(--paper);
   color: var(--ink);
   font-family: 'DM Sans', -apple-system, sans-serif;
   font-size: 17px;
@@ -35,29 +36,141 @@ body {
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  background-image:
-    radial-gradient(ellipse at top left, rgba(169, 63, 31, 0.04) 0px, transparent 55%),
-    radial-gradient(ellipse at bottom right, rgba(20, 24, 28, 0.03) 0px, transparent 55%);
+  /* subtle dot grid throughout */
+  background-image: radial-gradient(circle, rgba(29,106,229,0.18) 1px, transparent 1px);
+  background-size: 28px 28px;
   min-height: 100vh;
 }
 
-/* Faint vignette to keep edges from feeling cold */
+/* ---- Section decoration containers ---- */
+.section-deco {
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+  color: var(--accent);
+}
+.work, .builds, .tools, .contact, .about {
+  position: relative;
+  overflow: hidden;
+}
+
+/* subtle top edge highlight */
 body::before {
   content: '';
   position: fixed;
-  inset: 0;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-bright), var(--accent));
+  z-index: 100;
   pointer-events: none;
-  z-index: 1;
-  background: radial-gradient(ellipse at center, transparent 50%, rgba(240, 238, 232, 0.35) 100%);
 }
 
 .container {
-  max-width: 1120px;
-  margin: 0 auto;
-  padding: 0 48px;
+  max-width: 900px;
+  margin: 0 0 0 256px;
+  padding: 0 56px;
   position: relative;
   z-index: 2;
 }
+
+/* ---------- SIDEBAR ---------- */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 256px;
+  height: 100vh;
+  background: var(--paper);
+  border-right: 1px solid var(--rule);
+  padding: 48px 32px;
+  display: flex;
+  flex-direction: column;
+  z-index: 10;
+  overflow-y: auto;
+  box-shadow: 2px 0 24px rgba(29,106,229,0.04);
+}
+.sidebar-identity { margin-bottom: 44px; }
+.sidebar-name {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 28px;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  margin-bottom: 14px;
+}
+.sidebar-sub {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  display: inline-flex;
+  gap: 8px;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 5px 10px;
+}
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  flex: 1;
+}
+.sidebar-link {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  text-decoration: none;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--rule);
+  transition: color 0.25s ease, padding-left 0.25s ease;
+  display: block;
+}
+.sidebar-link:last-child { border-bottom: none; }
+.sidebar-link:hover { color: var(--accent); padding-left: 6px; }
+.sidebar-foot {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 28px;
+  border-top: 1px solid var(--rule);
+}
+.sidebar-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.sdot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #5aad7a;
+  flex-shrink: 0;
+  animation: blink 2.5s ease infinite;
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+.sidebar-clink {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  text-decoration: none;
+  transition: color 0.25s ease;
+}
+.sidebar-clink:hover { color: var(--accent); }
 
 /* ---------- NAV ---------- */
 nav {
@@ -84,9 +197,21 @@ nav .meta { color: var(--ink-faint); }
 
 /* ---------- HERO ---------- */
 .hero {
-  padding: 120px 0 80px;
+  padding: 80px 0 32px;
   position: relative;
+  overflow: hidden;
 }
+.hero-graph {
+  position: absolute;
+  top: 0; right: -40px;
+  width: 55%;
+  opacity: 0.55;
+  color: var(--accent);
+  pointer-events: none;
+  z-index: 0;
+}
+.hero-graph svg { width: 100%; height: auto; display: block; }
+.hero h1, .hero .kicker, .hero .pitch { position: relative; z-index: 1; }
 
 .hero .kicker {
   font-family: 'JetBrains Mono', monospace;
@@ -109,9 +234,9 @@ nav .meta { color: var(--ink-faint); }
 .hero h1 {
   font-family: 'Fraunces', serif;
   font-weight: 400;
-  font-size: clamp(56px, 9vw, 124px);
-  line-height: 0.95;
-  letter-spacing: -0.025em;
+  font-size: clamp(36px, 5vw, 68px);
+  line-height: 1.0;
+  letter-spacing: -0.02em;
   color: var(--ink);
   margin-bottom: 32px;
   font-variation-settings: "opsz" 144;
@@ -124,11 +249,11 @@ nav .meta { color: var(--ink-faint); }
 
 .hero .pitch {
   font-family: 'Fraunces', serif;
-  font-size: clamp(20px, 2.4vw, 28px);
-  line-height: 1.45;
+  font-size: clamp(16px, 1.9vw, 21px);
+  line-height: 1.6;
   font-weight: 400;
   color: var(--ink-soft);
-  max-width: 720px;
+  max-width: 680px;
   font-variation-settings: "opsz" 36;
 }
 .hero .pitch strong {
@@ -142,7 +267,7 @@ nav .meta { color: var(--ink-faint); }
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 80px 0 64px;
+  margin: 32px 0 28px;
   gap: 14px;
 }
 .ornament .line {
@@ -166,7 +291,7 @@ nav .meta { color: var(--ink-faint); }
   font-family: 'Fraunces', serif;
   font-weight: 400;
   font-style: italic;
-  font-size: 52px;
+  font-size: 38px;
   letter-spacing: -0.01em;
   color: var(--ink);
 }
@@ -179,29 +304,122 @@ nav .meta { color: var(--ink-faint); }
 }
 
 /* ---------- ABOUT ---------- */
-.about {
-  padding: 40px 0 80px;
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  gap: 80px;
-  align-items: start;
-}
-.about .label {
+.about { padding: 20px 0 80px; }
+
+.about-kicker {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 14px;
+  font-size: 10px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--accent);
-  padding-top: 8px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
-.about p {
-  font-size: 18px;
-  line-height: 1.7;
+.about-kicker::before {
+  content: '';
+  width: 28px;
+  height: 1px;
+  background: var(--accent);
+}
+
+.about-headline {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(28px, 3.8vw, 46px);
+  line-height: 1.2;
+  color: var(--ink);
+  padding-bottom: 36px;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 40px;
+  max-width: 700px;
+  letter-spacing: -0.015em;
+  font-variation-settings: "opsz" 72;
+}
+
+.about-body {
+  display: grid;
+  grid-template-columns: 1fr 220px;
+  gap: 48px;
+  align-items: start;
+  margin-bottom: 36px;
+}
+
+.about-prose p {
+  font-size: 17px;
+  line-height: 1.75;
   color: var(--ink-soft);
   margin-bottom: 20px;
 }
-.about p:last-child { margin-bottom: 0; }
-.about p strong { color: var(--ink); font-weight: 500; }
+.about-prose p:last-child { margin-bottom: 0; }
+.about-prose p strong { color: var(--ink); font-weight: 500; }
+
+.about-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  padding-left: 36px;
+  border-left: 1px solid var(--rule);
+}
+
+.stat-block {}
+
+.stat-num {
+  font-family: 'Fraunces', serif;
+  font-weight: 400;
+  font-size: 38px;
+  line-height: 1;
+  color: var(--accent);
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+  font-variation-settings: "opsz" 60;
+}
+
+.stat-desc {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9.5px;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  line-height: 1.5;
+}
+
+.about-ai {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding-top: 28px;
+  border-top: 1px solid var(--rule);
+  flex-wrap: wrap;
+}
+
+.about-ai-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+.about-ai-tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.about-ai-tools span {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9.5px;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  border: 1px solid var(--rule);
+  padding: 4px 10px;
+  border-radius: 100px;
+}
 
 /* ---------- WORK ---------- */
 .work { padding: 40px 0 80px; }
@@ -250,16 +468,17 @@ nav .meta { color: var(--ink-faint); }
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--accent);
-  background: var(--accent-wash);
-  padding: 4px 10px;
+  background: transparent;
+  border: 1px solid rgba(196, 148, 58, 0.28);
+  padding: 3px 10px;
   border-radius: 100px;
 }
 
 .project-title {
   font-family: 'Fraunces', serif;
   font-weight: 400;
-  font-size: clamp(28px, 3.6vw, 42px);
-  line-height: 1.1;
+  font-size: clamp(20px, 2.5vw, 30px);
+  line-height: 1.15;
   letter-spacing: -0.01em;
   color: var(--ink);
   margin-bottom: 8px;
@@ -347,9 +566,10 @@ nav .meta { color: var(--ink-faint); }
   display: inline-flex;
   align-items: center;
   gap: 12px;
-  padding: 14px 22px;
-  background: var(--ink);
-  color: var(--paper-tint);
+  padding: 12px 22px;
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid rgba(196, 148, 58, 0.35);
   font-family: 'JetBrains Mono', monospace;
   font-size: 11px;
   letter-spacing: 0.14em;
@@ -360,16 +580,157 @@ nav .meta { color: var(--ink-faint); }
 }
 .project-cta:hover {
   background: var(--accent);
+  color: var(--paper);
+  border-color: var(--accent);
   transform: translateY(-2px);
-  box-shadow: 0 12px 24px rgba(184, 69, 31, 0.25);
+  box-shadow: 0 12px 28px rgba(196, 148, 58, 0.2);
 }
 .project-cta svg { transition: transform 0.3s ease; }
 .project-cta:hover svg { transform: translate(2px, -2px); }
 
+/* ---------- WORK TILE GRID ---------- */
+.work-grid {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.work-card {
+  background: #fff;
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+  padding: 26px 28px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
+}
+/* Accent left-edge reveal on hover */
+.work-card::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: var(--accent);
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 0.28s cubic-bezier(0.65, 0, 0.35, 1);
+  border-radius: 0 0 0 12px;
+}
+.work-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 48px rgba(29,106,229,0.13);
+  border-color: rgba(29,106,229,0.35);
+}
+.work-card:hover::before { transform: scaleY(1); }
+
+.work-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.work-card-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: var(--ink-faint);
+  flex-shrink: 0;
+  transition: color 0.28s ease;
+}
+.work-card:hover .work-card-num { color: var(--accent); }
+
+.work-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.work-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--accent);
+  border: 1px solid rgba(29,106,229,0.25);
+  padding: 2px 8px;
+  border-radius: 100px;
+  transition: background 0.28s ease, color 0.28s ease;
+}
+.work-card:hover .work-tag {
+  background: rgba(29,106,229,0.07);
+}
+
+.work-card-title {
+  font-family: 'Fraunces', serif;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  margin-bottom: 8px;
+  font-variation-settings: "opsz" 60;
+  transition: color 0.28s ease;
+}
+.work-card:hover .work-card-title { color: var(--accent); }
+
+.work-card-sub {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 14px;
+  color: var(--ink-soft);
+  line-height: 1.45;
+  margin-bottom: 14px;
+}
+
+.work-card-summary {
+  font-size: 13.5px;
+  line-height: 1.65;
+  color: var(--ink-faint);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  flex: 1;
+  margin-bottom: 20px;
+  transition: color 0.28s ease;
+}
+.work-card:hover .work-card-summary { color: var(--ink-soft); }
+
+.work-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 16px;
+  border-top: 1px dotted var(--rule);
+  margin-top: auto;
+}
+.work-card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  text-decoration: none;
+  transition: gap 0.25s ease;
+}
+.work-card:hover .work-card-link { gap: 11px; }
+.work-card-link svg { transition: transform 0.25s ease; }
+.work-card:hover .work-card-link svg { transform: translate(2px, -2px); }
+
 /* ---------- FOOTER / CONTACT ---------- */
 .contact {
-  margin-top: 120px;
-  padding: 100px 0 80px;
+  margin-top: 0;
+  padding: 48px 0 80px;
   position: relative;
   border-top: 1px solid var(--rule);
 }
@@ -385,8 +746,8 @@ nav .meta { color: var(--ink-faint); }
   font-family: 'Fraunces', serif;
   font-style: italic;
   font-weight: 400;
-  font-size: clamp(40px, 6vw, 76px);
-  line-height: 1;
+  font-size: clamp(32px, 4vw, 54px);
+  line-height: 1.05;
   letter-spacing: -0.02em;
   color: var(--ink);
   margin-bottom: 24px;
@@ -492,8 +853,9 @@ nav .meta { color: var(--ink-faint); }
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--accent);
-  background: var(--accent-wash);
-  padding: 4px 10px;
+  background: transparent;
+  border: 1px solid rgba(196, 148, 58, 0.28);
+  padding: 3px 10px;
   border-radius: 100px;
 }
 
@@ -511,8 +873,8 @@ nav .meta { color: var(--ink-faint); }
 .build-name {
   font-family: 'Fraunces', serif;
   font-weight: 400;
-  font-size: clamp(28px, 3.6vw, 42px);
-  line-height: 1.1;
+  font-size: clamp(20px, 2.5vw, 30px);
+  line-height: 1.15;
   letter-spacing: -0.01em;
   color: var(--ink);
   margin-bottom: 8px;
@@ -549,7 +911,7 @@ nav .meta { color: var(--ink-faint); }
 
 /* ---------- TOOLS ---------- */
 .tools {
-  padding: 40px 0 80px;
+  padding: 40px 0 48px;
 }
 
 .tools-category {
@@ -619,7 +981,7 @@ nav .meta { color: var(--ink-faint); }
   background: var(--paper-tint);
   border-radius: 8px;
   padding: 5px;
-  box-shadow: 0 1px 2px rgba(20, 24, 28, 0.04);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
   flex-shrink: 0;
 }
 .tool-logo img {
@@ -665,16 +1027,33 @@ nav .meta { color: var(--ink-faint); }
 
 /* ---------- RESPONSIVE ---------- */
 @media (max-width: 760px) {
-  .container { padding: 0 24px; }
+  .sidebar {
+    position: static;
+    width: 100%;
+    height: auto;
+    border-right: none;
+    border-bottom: 1px solid var(--rule);
+    padding: 20px 24px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    overflow: visible;
+  }
+  .sidebar-identity { margin-bottom: 0; }
+  .sidebar-nav, .sidebar-foot { display: none; }
+  .container { padding: 0 24px; margin-left: 0; }
   nav { padding: 24px 0 0; }
-  .hero { padding: 70px 0 50px; }
+  .hero { padding: 50px 0 40px; }
   .hero .kicker { margin-bottom: 24px; }
-  .about { grid-template-columns: 1fr; gap: 16px; padding: 30px 0 60px; }
-  .about .label { padding-top: 0; }
-  .section-head h2 { font-size: 36px; }
+  .about { padding: 30px 0 60px; }
+  .about-body { grid-template-columns: 1fr; gap: 32px; }
+  .about-stats { flex-direction: row; flex-wrap: wrap; padding-left: 0; border-left: none; border-top: 1px solid var(--rule); padding-top: 24px; gap: 20px; }
+  .stat-num { font-size: 28px; }
+  .section-head h2 { font-size: 28px; }
   .section-head { margin-bottom: 36px; }
   .ornament { margin: 50px 0 40px; }
 
+  .work-grid { grid-template-columns: 1fr; }
   .project { padding: 28px 0; }
   .project-row { grid-template-columns: 48px 1fr auto; gap: 16px; }
   .project-num { padding-top: 8px; font-size: 16px; }
@@ -704,16 +1083,62 @@ nav .meta { color: var(--ink-faint); }
 </head>
 <body>
 
-<div class="container">
-
-  <nav>
-    <div class="mark">Rishi Raj Sahu</div>
-    <div class="meta">Portfolio &middot; 2026</div>
+<aside class="sidebar">
+  <div class="sidebar-identity">
+    <div class="sidebar-name">Rishi Raj Sahu</div>
+    <div class="sidebar-sub">Product &middot; Analytics &middot; AI</div>
+  </div>
+  <nav class="sidebar-nav">
+    <a class="sidebar-link" href="#work">Work</a>
+    <a class="sidebar-link" href="#builds">Builds</a>
+    <a class="sidebar-link" href="#tools">Tools</a>
+    <a class="sidebar-link" href="#contact">Contact</a>
   </nav>
+  <div class="sidebar-foot">
+    <div class="sidebar-status">
+      <span class="sdot"></span>Open to PM roles
+    </div>
+    <a class="sidebar-clink" href="mailto:rrjsahu@outlook.com">Email &nearr;</a>
+    <a class="sidebar-clink" href="https://www.linkedin.com/in/rishi-raj-sahu-52b474142" target="_blank" rel="noopener">LinkedIn &nearr;</a>
+  </div>
+</aside>
+
+<div class="container">
 
   <!-- HERO -->
   <section class="hero">
-    <div class="kicker">Product · Analytics · AI</div>
+    <!-- Decorative tech graph background -->
+    <div class="hero-graph" aria-hidden="true">
+      <svg viewBox="0 0 600 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Grid lines -->
+        <line x1="0" y1="55" x2="600" y2="55" stroke="currentColor" stroke-width="0.5" opacity="0.3"/>
+        <line x1="0" y1="110" x2="600" y2="110" stroke="currentColor" stroke-width="0.5" opacity="0.3"/>
+        <line x1="0" y1="165" x2="600" y2="165" stroke="currentColor" stroke-width="0.5" opacity="0.3"/>
+        <line x1="100" y1="0" x2="100" y2="220" stroke="currentColor" stroke-width="0.5" opacity="0.2"/>
+        <line x1="200" y1="0" x2="200" y2="220" stroke="currentColor" stroke-width="0.5" opacity="0.2"/>
+        <line x1="300" y1="0" x2="300" y2="220" stroke="currentColor" stroke-width="0.5" opacity="0.2"/>
+        <line x1="400" y1="0" x2="400" y2="220" stroke="currentColor" stroke-width="0.5" opacity="0.2"/>
+        <line x1="500" y1="0" x2="500" y2="220" stroke="currentColor" stroke-width="0.5" opacity="0.2"/>
+        <!-- Trend line 1 (growth curve) -->
+        <path d="M0 190 C60 185, 100 170, 150 155 C200 140, 220 130, 280 105 C340 80, 380 65, 440 45 C490 28, 540 18, 600 10" stroke="currentColor" stroke-width="2" opacity="0.5" fill="none" stroke-linecap="round"/>
+        <!-- Fill under trend line -->
+        <path d="M0 190 C60 185, 100 170, 150 155 C200 140, 220 130, 280 105 C340 80, 380 65, 440 45 C490 28, 540 18, 600 10 L600 220 L0 220Z" fill="currentColor" opacity="0.04"/>
+        <!-- Trend line 2 (secondary metric) -->
+        <path d="M0 210 C80 205, 130 198, 190 182 C250 166, 290 155, 350 138 C400 124, 450 108, 520 88 C555 78, 578 68, 600 55" stroke="currentColor" stroke-width="1.5" opacity="0.25" fill="none" stroke-dasharray="6 4" stroke-linecap="round"/>
+        <!-- Data points on main line -->
+        <circle cx="150" cy="155" r="3.5" fill="currentColor" opacity="0.7"/>
+        <circle cx="280" cy="105" r="3.5" fill="currentColor" opacity="0.7"/>
+        <circle cx="440" cy="45" r="3.5" fill="currentColor" opacity="0.7"/>
+        <!-- Vertical drop lines from data points -->
+        <line x1="150" y1="155" x2="150" y2="220" stroke="currentColor" stroke-width="1" opacity="0.2" stroke-dasharray="3 3"/>
+        <line x1="280" y1="105" x2="280" y2="220" stroke="currentColor" stroke-width="1" opacity="0.2" stroke-dasharray="3 3"/>
+        <line x1="440" y1="45" x2="440" y2="220" stroke="currentColor" stroke-width="1" opacity="0.2" stroke-dasharray="3 3"/>
+        <!-- Axis labels -->
+        <text x="148" y="215" font-family="monospace" font-size="8" fill="currentColor" opacity="0.4" text-anchor="middle">Q2</text>
+        <text x="278" y="215" font-family="monospace" font-size="8" fill="currentColor" opacity="0.4" text-anchor="middle">Q3</text>
+        <text x="438" y="215" font-family="monospace" font-size="8" fill="currentColor" opacity="0.4" text-anchor="middle">Q4</text>
+      </svg>
+    </div>
     <h1>Building products that <em>learn from data</em>, not assumptions.</h1>
     <p class="pitch">
       I'm a product practitioner with <strong>8+ years across B2C e-commerce</strong>, currently at Victoria's Secret &mdash; where I write PRDs, Acceptance Criteria, run A/B experiments at million-user scale, and shape roadmap from funnel and cohort data. Building toward AI-native PM roles, with a portfolio that pairs rigorous analytics with sharp product thinking.
@@ -730,233 +1155,238 @@ nav .meta { color: var(--ink-faint); }
 
   <!-- ABOUT -->
   <section class="about">
-    <div class="label">About</div>
-    <div>
-      <p>
-        I came up through <strong>Adobe Analytics</strong> &mdash; first as a support engineer at Adobe, then as a consultant at Capgemini, and now as a product analyst at <strong>Victoria's Secret</strong>, where I own digital instrumentation, experimentation, and KPI strategy across Checkout, PDP, PLP, and Accounts on web and mobile.
-      </p>
-      <p>
-        That background gives me an unusual edge for PM work: I don't need a separate analytics team to validate a hypothesis, scope an MVP, or read a funnel. The projects below are how I'm sharpening the rest of the craft &mdash; <strong>PRD writing, prioritisation, system design, UX evaluation, and growth strategy</strong>.
-      </p>
+    <!-- bar chart deco -->
+    <div class="section-deco" style="right:-20px;top:40px;width:260px;opacity:0.13;">
+      <svg viewBox="0 0 260 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="10"  y="110" width="24" height="40"  fill="currentColor" rx="2"/>
+        <rect x="46"  y="80"  width="24" height="70"  fill="currentColor" rx="2"/>
+        <rect x="82"  y="55"  width="24" height="95"  fill="currentColor" rx="2"/>
+        <rect x="118" y="35"  width="24" height="115" fill="currentColor" rx="2"/>
+        <rect x="154" y="18"  width="24" height="132" fill="currentColor" rx="2"/>
+        <rect x="190" y="8"   width="24" height="142" fill="currentColor" rx="2"/>
+        <line x1="0" y1="150" x2="260" y2="150" stroke="currentColor" stroke-width="1.5"/>
+        <text x="22"  y="158" font-family="monospace" font-size="8" fill="currentColor" text-anchor="middle">Q1</text>
+        <text x="58"  y="158" font-family="monospace" font-size="8" fill="currentColor" text-anchor="middle">Q2</text>
+        <text x="94"  y="158" font-family="monospace" font-size="8" fill="currentColor" text-anchor="middle">Q3</text>
+        <text x="130" y="158" font-family="monospace" font-size="8" fill="currentColor" text-anchor="middle">Q4</text>
+        <text x="166" y="158" font-family="monospace" font-size="8" fill="currentColor" text-anchor="middle">Q5</text>
+        <text x="202" y="158" font-family="monospace" font-size="8" fill="currentColor" text-anchor="middle">Q6</text>
+      </svg>
     </div>
+
+    <div class="about-kicker">About</div>
+    <p class="about-headline">Analytics-native PM. The data instinct is built in &mdash; not bolted on.</p>
+
+    <div class="about-body">
+      <div class="about-prose">
+        <p>
+          Eight years across <strong>Adobe</strong> (SME, enterprise analytics), <strong>Capgemini</strong> (analytics consultant, fintech &amp; e-commerce), and <strong>Victoria&rsquo;s Secret</strong> built the instincts most PMs outsource to a separate data team. I read funnels the way others read wireframes: where users exit, what cohorts reveal about acquisition quality, what the instrumentation gaps are hiding.
+        </p>
+        <p>
+          At VS, that foundation drives the PM output directly. I independently author PRDs, user stories, and acceptance criteria for features shipped across web, iOS, and Android; design A/B experiments at million-user scale; and translate funnel and cohort data into ship decisions &mdash; no hand-off, no waiting. I also use Claude, Cursor, Bolt, and Lovable AI to go from PRD to click-through prototype without engineering &mdash; compressing the feedback loop between hypothesis and validation.
+        </p>
+      </div>
+      <div class="about-stats">
+        <div class="stat-block">
+          <div class="stat-num">~$100M</div>
+          <div class="stat-desc">Revenue impact &middot; A/B experiments at VS</div>
+        </div>
+        <div class="stat-block">
+          <div class="stat-num">8%</div>
+          <div class="stat-desc">Conversion uplift &middot; Checkout fix</div>
+        </div>
+        <div class="stat-block">
+          <div class="stat-num">1.2M</div>
+          <div class="stat-desc">Peak users per experiment</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="about-ai">
+      <div class="about-ai-label">AI Stack</div>
+      <div class="about-ai-tools">
+        <span>Claude</span>
+        <span>Cursor</span>
+        <span>Bolt</span>
+        <span>Lovable AI</span>
+        <span>Emergent</span>
+        <span>Replit</span>
+        <span>Notion AI</span>
+      </div>
+    </div>
+
   </section>
 
   <!-- WORK -->
-  <section class="work">
+  <section class="work" id="work">
+    <!-- scatter plot deco -->
+    <div class="section-deco" style="right:-30px;top:0;width:320px;opacity:0.11;">
+      <svg viewBox="0 0 320 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- axes -->
+        <line x1="30" y1="10"  x2="30"  y2="270" stroke="currentColor" stroke-width="1.2"/>
+        <line x1="30" y1="270" x2="310" y2="270" stroke="currentColor" stroke-width="1.2"/>
+        <!-- tick marks -->
+        <line x1="25" y1="210" x2="35" y2="210" stroke="currentColor" stroke-width="1"/>
+        <line x1="25" y1="150" x2="35" y2="150" stroke="currentColor" stroke-width="1"/>
+        <line x1="25" y1="90"  x2="35" y2="90"  stroke="currentColor" stroke-width="1"/>
+        <line x1="100" y1="265" x2="100" y2="275" stroke="currentColor" stroke-width="1"/>
+        <line x1="170" y1="265" x2="170" y2="275" stroke="currentColor" stroke-width="1"/>
+        <line x1="240" y1="265" x2="240" y2="275" stroke="currentColor" stroke-width="1"/>
+        <!-- data points (varying size = impact) -->
+        <circle cx="65"  cy="230" r="5"  fill="currentColor"/>
+        <circle cx="90"  cy="200" r="7"  fill="currentColor"/>
+        <circle cx="110" cy="185" r="4"  fill="currentColor"/>
+        <circle cx="135" cy="155" r="9"  fill="currentColor"/>
+        <circle cx="160" cy="130" r="6"  fill="currentColor"/>
+        <circle cx="185" cy="110" r="11" fill="currentColor"/>
+        <circle cx="210" cy="85"  r="5"  fill="currentColor"/>
+        <circle cx="240" cy="65"  r="13" fill="currentColor"/>
+        <circle cx="270" cy="45"  r="7"  fill="currentColor"/>
+        <circle cx="295" cy="30"  r="9"  fill="currentColor"/>
+        <!-- trend line -->
+        <path d="M50 245 Q180 130 305 28" stroke="currentColor" stroke-width="1.5" stroke-dasharray="5 3" fill="none" opacity="0.6"/>
+        <!-- axis labels -->
+        <text x="160" y="290" font-family="monospace" font-size="8" fill="currentColor" text-anchor="middle">EXPERIMENTS →</text>
+        <text x="14" y="145" font-family="monospace" font-size="8" fill="currentColor" text-anchor="middle" transform="rotate(-90,14,145)">IMPACT →</text>
+      </svg>
+    </div>
     <div class="section-head">
       <h2>Selected work</h2>
       <div class="count">07 case studies</div>
     </div>
 
-    <ul class="project-list">
+    <ul class="work-grid">
 
-      <li class="project" data-index="01">
-        <div class="project-row" onclick="toggleProject(this)">
-          <div class="project-num">01</div>
-          <div class="project-title-block">
-            <div class="project-tags">
-              <span class="project-tag">Product Strategy</span>
-              <span class="project-tag">OKRs</span>
-              <span class="project-tag">Cohort Analysis</span>
-            </div>
-            <h3 class="project-title">Zomato Tier-3 Cities</h3>
-            <div class="project-subtitle">An annual strategy for habit formation in low-trust, thin-supply markets</div>
+      <li class="work-card" onclick="window.open('./pdfs/zomato-tier3-strategy.pdf','_blank')">
+        <div class="work-card-header">
+          <div class="work-card-tags">
+            <span class="work-tag">Product Strategy</span>
+            <span class="work-tag">OKRs</span>
+            <span class="work-tag">Cohort Analysis</span>
           </div>
-          <div class="project-toggle"><span>Read</span><span class="plus"></span></div>
+          <div class="work-card-num">01 / 07</div>
         </div>
-        <div class="project-body">
-          <div class="project-body-inner">
-            <div class="project-body-spacer"></div>
-            <div>
-              <p class="project-summary">
-                Built a full annual <strong>OKR framework</strong> targeting Weekly Transacting Users in Tier-3 India, anchored on M1 retention (25% &rarr; 42%) and orders per MAU (2.2 &rarr; 3.8). Pairs a unified funnel diagnostic across 6 stages with cohort retention analysis exposing where discount-driven users collapse and why new-user retention at 14% makes acquisition structurally unsustainable.
-              </p>
-              <a class="project-cta" href="./pdfs/zomato-tier3-strategy.pdf" target="_blank" rel="noopener">
-                Open PDF
-                <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10 L10 2 M10 2 H4 M10 2 V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-              </a>
-            </div>
-          </div>
+        <h3 class="work-card-title">Zomato Tier-3 Cities</h3>
+        <p class="work-card-sub">An annual strategy for habit formation in low-trust, thin-supply markets</p>
+        <p class="work-card-summary">Full OKR framework targeting Weekly Transacting Users in Tier-3 India, anchored on M1 retention (25%→42%) and orders per MAU (2.2→3.8). Pairs funnel diagnostics with cohort retention analysis exposing where discount-driven users collapse.</p>
+        <div class="work-card-footer">
+          <a class="work-card-link" href="./pdfs/zomato-tier3-strategy.pdf" target="_blank" rel="noopener" onclick="event.stopPropagation()">
+            Open PDF <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10 L10 2 M10 2 H4 M10 2 V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </a>
         </div>
       </li>
 
-      <li class="project" data-index="02">
-        <div class="project-row" onclick="toggleProject(this)">
-          <div class="project-num">02</div>
-          <div class="project-title-block">
-            <div class="project-tags">
-              <span class="project-tag">PRD</span>
-              <span class="project-tag">Retention</span>
-              <span class="project-tag">Experimentation</span>
-            </div>
-            <h3 class="project-title">Vitafit &mdash; Retention &amp; Engagement</h3>
-            <div class="project-subtitle">A PRD for two engagement bets on a live fitness platform</div>
+      <li class="work-card" onclick="window.open('./pdfs/vitafit-engagement-prd.pdf','_blank')">
+        <div class="work-card-header">
+          <div class="work-card-tags">
+            <span class="work-tag">PRD</span>
+            <span class="work-tag">Retention</span>
+            <span class="work-tag">Experimentation</span>
           </div>
-          <div class="project-toggle"><span>Read</span><span class="plus"></span></div>
+          <div class="work-card-num">02 / 07</div>
         </div>
-        <div class="project-body">
-          <div class="project-body-inner">
-            <div class="project-body-spacer"></div>
-            <div>
-              <p class="project-summary">
-                End-to-end <strong>PRD</strong> for two engagement bets &mdash; a Gamification &amp; Streaks Engine and a Community Challenge Hub &mdash; each written with problem, evidence, success metrics, guardrails, phased A/B plan, and timeline. Targets the D14 / D30 retention drop-offs caused by motivation decay and the absence of any social accountability layer, with full user-flow diagrams for both features.
-              </p>
-              <a class="project-cta" href="./pdfs/vitafit-engagement-prd.pdf" target="_blank" rel="noopener">
-                Open PDF
-                <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10 L10 2 M10 2 H4 M10 2 V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-              </a>
-            </div>
-          </div>
+        <h3 class="work-card-title">Vitafit — Retention &amp; Engagement</h3>
+        <p class="work-card-sub">A PRD for two engagement bets on a live fitness platform</p>
+        <p class="work-card-summary">End-to-end PRD for a Gamification &amp; Streaks Engine and Community Challenge Hub, each with problem, evidence, success metrics, guardrails, phased A/B plan, and timeline. Targets the D14/D30 retention drop-offs from motivation decay.</p>
+        <div class="work-card-footer">
+          <a class="work-card-link" href="./pdfs/vitafit-engagement-prd.pdf" target="_blank" rel="noopener" onclick="event.stopPropagation()">
+            Open PDF <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10 L10 2 M10 2 H4 M10 2 V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </a>
         </div>
       </li>
 
-      <li class="project" data-index="03">
-        <div class="project-row" onclick="toggleProject(this)">
-          <div class="project-num">03</div>
-          <div class="project-title-block">
-            <div class="project-tags">
-              <span class="project-tag">System Design</span>
-              <span class="project-tag">Recommender</span>
-              <span class="project-tag">Trade-offs</span>
-            </div>
-            <h3 class="project-title">Personalised Learning Recommendations</h3>
-            <div class="project-subtitle">Product design doc for an adaptive course recommendation engine</div>
+      <li class="work-card" onclick="window.open('./pdfs/learning-recommender-design.pdf','_blank')">
+        <div class="work-card-header">
+          <div class="work-card-tags">
+            <span class="work-tag">System Design</span>
+            <span class="work-tag">Recommender</span>
+            <span class="work-tag">Trade-offs</span>
           </div>
-          <div class="project-toggle"><span>Read</span><span class="plus"></span></div>
+          <div class="work-card-num">03 / 07</div>
         </div>
-        <div class="project-body">
-          <div class="project-body-inner">
-            <div class="project-body-spacer"></div>
-            <div>
-              <p class="project-summary">
-                System-level <strong>product design document</strong> for an adaptive learning recommender across learners, instructors, and admins: 15 user stories laddered to three business KPIs, twelve prioritised features, a full non-functional spec, and a four-layer architecture diagram. Closes with a three-way trade-off analysis &mdash; <em>personalisation depth vs real-time performance vs privacy</em> &mdash; and the reasoning for treating privacy as a hard boundary, not a dial to tune.
-              </p>
-              <a class="project-cta" href="./pdfs/learning-recommender-design.pdf" target="_blank" rel="noopener">
-                Open PDF
-                <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10 L10 2 M10 2 H4 M10 2 V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-              </a>
-            </div>
-          </div>
+        <h3 class="work-card-title">Personalised Learning Recommendations</h3>
+        <p class="work-card-sub">Product design doc for an adaptive course recommendation engine</p>
+        <p class="work-card-summary">System-level design doc across learners, instructors, and admins: 15 user stories, twelve prioritised features, a four-layer architecture diagram, and a three-way trade-off analysis on personalisation vs. performance vs. privacy.</p>
+        <div class="work-card-footer">
+          <a class="work-card-link" href="./pdfs/learning-recommender-design.pdf" target="_blank" rel="noopener" onclick="event.stopPropagation()">
+            Open PDF <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10 L10 2 M10 2 H4 M10 2 V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </a>
         </div>
       </li>
 
-      <li class="project" data-index="04">
-        <div class="project-row" onclick="toggleProject(this)">
-          <div class="project-num">04</div>
-          <div class="project-title-block">
-            <div class="project-tags">
-              <span class="project-tag">UX Evaluation</span>
-              <span class="project-tag">Heuristics</span>
-              <span class="project-tag">Redesign</span>
-            </div>
-            <h3 class="project-title">Zomato Checkout &mdash; UX Evaluation</h3>
-            <div class="project-subtitle">A heuristic teardown of the Android food-ordering flow</div>
+      <li class="work-card" onclick="window.open('./pdfs/zomato-ux-evaluation.pdf','_blank')">
+        <div class="work-card-header">
+          <div class="work-card-tags">
+            <span class="work-tag">UX Evaluation</span>
+            <span class="work-tag">Heuristics</span>
+            <span class="work-tag">Redesign</span>
           </div>
-          <div class="project-toggle"><span>Read</span><span class="plus"></span></div>
+          <div class="work-card-num">04 / 07</div>
         </div>
-        <div class="project-body">
-          <div class="project-body-inner">
-            <div class="project-body-spacer"></div>
-            <div>
-              <p class="project-summary">
-                Heuristic evaluation of Zomato's end-to-end <strong>Android checkout flow</strong> across five screens, mapping every issue to Nielsen's 10 heuristics plus Hick's, Fitts's, and Jakob's laws, with severity ratings. Closes with five prioritised <strong>before/after redesign recommendations</strong> &mdash; each tied to the violated principle and an estimated conversion impact.
-              </p>
-              <a class="project-cta" href="./pdfs/zomato-ux-evaluation.pdf" target="_blank" rel="noopener">
-                Open PDF
-                <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10 L10 2 M10 2 H4 M10 2 V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-              </a>
-            </div>
-          </div>
+        <h3 class="work-card-title">Zomato Checkout — UX Evaluation</h3>
+        <p class="work-card-sub">A heuristic teardown of the Android food-ordering flow</p>
+        <p class="work-card-summary">Heuristic evaluation across five screens, mapping every issue to Nielsen's 10 heuristics plus Hick's, Fitts's, and Jakob's laws with severity ratings. Five prioritised before/after redesign recommendations, each tied to conversion impact.</p>
+        <div class="work-card-footer">
+          <a class="work-card-link" href="./pdfs/zomato-ux-evaluation.pdf" target="_blank" rel="noopener" onclick="event.stopPropagation()">
+            Open PDF <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10 L10 2 M10 2 H4 M10 2 V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </a>
         </div>
       </li>
 
-      <li class="project" data-index="05">
-        <div class="project-row" onclick="toggleProject(this)">
-          <div class="project-num">05</div>
-          <div class="project-title-block">
-            <div class="project-tags">
-              <span class="project-tag">Growth</span>
-              <span class="project-tag">AARRR</span>
-              <span class="project-tag">RICE</span>
-            </div>
-            <h3 class="project-title">Twitter / X &mdash; Growth Opportunities</h3>
-            <div class="project-subtitle">AARRR-led growth strategy targeting premium and D30 retention</div>
+      <li class="work-card" onclick="window.open('./pdfs/twitter-x-aarrr-growth.pdf','_blank')">
+        <div class="work-card-header">
+          <div class="work-card-tags">
+            <span class="work-tag">Growth</span>
+            <span class="work-tag">AARRR</span>
+            <span class="work-tag">RICE</span>
           </div>
-          <div class="project-toggle"><span>Read</span><span class="plus"></span></div>
+          <div class="work-card-num">05 / 07</div>
         </div>
-        <div class="project-body">
-          <div class="project-body-inner">
-            <div class="project-body-spacer"></div>
-            <div>
-              <p class="project-summary">
-                Full <strong>AARRR funnel breakdown</strong> of X across four personas (Gen Z creators, public figures, premium subscribers, new users), exposing the largest drops at Activation and Retention &rarr; Revenue. Proposes four product epics &mdash; including persona-based smart onboarding and a premium trial trigger engine &mdash; and prioritises them via <strong>RICE</strong>, with Persona Onboarding winning at 108.
-              </p>
-              <a class="project-cta" href="./pdfs/twitter-x-aarrr-growth.pdf" target="_blank" rel="noopener">
-                Open PDF
-                <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10 L10 2 M10 2 H4 M10 2 V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-              </a>
-            </div>
-          </div>
+        <h3 class="work-card-title">Twitter / X — Growth Opportunities</h3>
+        <p class="work-card-sub">AARRR-led growth strategy targeting premium and D30 retention</p>
+        <p class="work-card-summary">Full AARRR funnel breakdown across four personas, exposing the largest drops at Activation and Retention. Four product epics prioritised via RICE — Persona Onboarding wins at 108, with a premium trial trigger engine as runner-up.</p>
+        <div class="work-card-footer">
+          <a class="work-card-link" href="./pdfs/twitter-x-aarrr-growth.pdf" target="_blank" rel="noopener" onclick="event.stopPropagation()">
+            Open PDF <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10 L10 2 M10 2 H4 M10 2 V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </a>
         </div>
       </li>
 
-      <li class="project" data-index="06">
-        <div class="project-row" onclick="toggleProject(this)">
-          <div class="project-num">06</div>
-          <div class="project-title-block">
-            <div class="project-tags">
-              <span class="project-tag">Segmentation</span>
-              <span class="project-tag">Prioritisation</span>
-              <span class="project-tag">Roadmap</span>
-            </div>
-            <h3 class="project-title">Zepto &mdash; AOV Optimisation Strategy</h3>
-            <div class="project-subtitle">Basket expansion strategy targeting 20&ndash;30% AOV uplift</div>
+      <li class="work-card" onclick="window.open('./pdfs/zepto-aov-strategy.pdf','_blank')">
+        <div class="work-card-header">
+          <div class="work-card-tags">
+            <span class="work-tag">Segmentation</span>
+            <span class="work-tag">Prioritisation</span>
+            <span class="work-tag">Roadmap</span>
           </div>
-          <div class="project-toggle"><span>Read</span><span class="plus"></span></div>
+          <div class="work-card-num">06 / 07</div>
         </div>
-        <div class="project-body">
-          <div class="project-body-inner">
-            <div class="project-body-spacer"></div>
-            <div>
-              <p class="project-summary">
-                Segmentation-led basket expansion strategy: maps <strong>five user archetypes</strong> to AOV contribution, identifies five structural blockers (urgency mindset, free-delivery ceiling, weak discovery, generic recommendations, order fragmentation), and recommends three interventions. The Tiered Reward Ladder wins <strong>RICE at 115.2</strong> and anchors a 0&ndash;6 month roadmap projecting 20&ndash;30% AOV uplift, each phase tied to primary KPIs and guardrails.
-              </p>
-              <a class="project-cta" href="./pdfs/zepto-aov-strategy.pdf" target="_blank" rel="noopener">
-                Open PDF
-                <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10 L10 2 M10 2 H4 M10 2 V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-              </a>
-            </div>
-          </div>
+        <h3 class="work-card-title">Zepto — AOV Optimisation Strategy</h3>
+        <p class="work-card-sub">Basket expansion strategy targeting 20–30% AOV uplift</p>
+        <p class="work-card-summary">Segmentation-led strategy mapping five user archetypes to AOV contribution, five structural blockers, and three interventions. The Tiered Reward Ladder wins RICE at 115.2, anchoring a 0–6 month roadmap tied to primary KPIs and guardrails.</p>
+        <div class="work-card-footer">
+          <a class="work-card-link" href="./pdfs/zepto-aov-strategy.pdf" target="_blank" rel="noopener" onclick="event.stopPropagation()">
+            Open PDF <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10 L10 2 M10 2 H4 M10 2 V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </a>
         </div>
       </li>
 
-      <li class="project" data-index="07">
-        <div class="project-row" onclick="toggleProject(this)">
-          <div class="project-num">07</div>
-          <div class="project-title-block">
-            <div class="project-tags">
-              <span class="project-tag">Feature PRD</span>
-              <span class="project-tag">AI / ML</span>
-              <span class="project-tag">Vendor Onboarding</span>
-            </div>
-            <h3 class="project-title">Swiggy &mdash; AI-Assisted Product Descriptions</h3>
-            <div class="project-subtitle">Cutting catalog drop-off with AI-generated, selectable descriptions during vendor onboarding</div>
+      <li class="work-card" onclick="window.open('./pdfs/swiggy-vendor-onboarding.pdf','_blank')">
+        <div class="work-card-header">
+          <div class="work-card-tags">
+            <span class="work-tag">Feature PRD</span>
+            <span class="work-tag">AI / ML</span>
+            <span class="work-tag">Vendor Onboarding</span>
           </div>
-          <div class="project-toggle"><span>Read</span><span class="plus"></span></div>
+          <div class="work-card-num">07 / 07</div>
         </div>
-        <div class="project-body">
-          <div class="project-body-inner">
-            <div class="project-body-spacer"></div>
-            <div>
-              <p class="project-summary">
-                Full feature PRD diagnosing why merchants stall at the product description step &mdash; blank-box paralysis, 15&ndash;30 items per catalog, and heavy mobile typing burden. Specifies an AI generation flow presenting <strong>two style-differentiated options</strong> (ingredient-led vs. flavour-led), up to 3 regenerations, and always bypassable by manual entry. Targets a <strong>+15&ndash;17pp lift in onboarding completion</strong> and a 40&ndash;50% reduction in active time-on-step, validated via A/B holdout.
-              </p>
-              <a class="project-cta" href="./pdfs/swiggy-vendor-onboarding.pdf" target="_blank" rel="noopener">
-                Open PDF
-                <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10 L10 2 M10 2 H4 M10 2 V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-              </a>
-            </div>
-          </div>
+        <h3 class="work-card-title">Swiggy — AI-Assisted Product Descriptions</h3>
+        <p class="work-card-sub">Cutting catalog drop-off with AI-generated, selectable descriptions during vendor onboarding</p>
+        <p class="work-card-summary">Feature PRD diagnosing merchant blank-box paralysis across 15–30 catalog items. AI flow presents two style-differentiated options with up to 3 regenerations. Targets +15–17pp onboarding completion and 40–50% reduction in active time-on-step via A/B holdout.</p>
+        <div class="work-card-footer">
+          <a class="work-card-link" href="./pdfs/swiggy-vendor-onboarding.pdf" target="_blank" rel="noopener" onclick="event.stopPropagation()">
+            Open PDF <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10 L10 2 M10 2 H4 M10 2 V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </a>
         </div>
       </li>
 
@@ -964,7 +1394,37 @@ nav .meta { color: var(--ink-faint); }
   </section>
 
   <!-- 0 → 1 BUILDS -->
-  <section class="builds">
+  <section class="builds" id="builds">
+    <!-- node network deco -->
+    <div class="section-deco" style="right:-10px;top:20px;width:300px;opacity:0.12;">
+      <svg viewBox="0 0 300 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- connection lines -->
+        <line x1="150" y1="110" x2="60"  y2="50"  stroke="currentColor" stroke-width="1"/>
+        <line x1="150" y1="110" x2="240" y2="50"  stroke="currentColor" stroke-width="1"/>
+        <line x1="150" y1="110" x2="60"  y2="170" stroke="currentColor" stroke-width="1"/>
+        <line x1="150" y1="110" x2="240" y2="170" stroke="currentColor" stroke-width="1"/>
+        <line x1="150" y1="110" x2="150" y2="20"  stroke="currentColor" stroke-width="1"/>
+        <line x1="150" y1="110" x2="150" y2="200" stroke="currentColor" stroke-width="1"/>
+        <line x1="60"  y1="50"  x2="150" y2="20"  stroke="currentColor" stroke-width="0.7" stroke-dasharray="3 3"/>
+        <line x1="240" y1="50"  x2="150" y2="20"  stroke="currentColor" stroke-width="0.7" stroke-dasharray="3 3"/>
+        <line x1="60"  y1="170" x2="150" y2="200" stroke="currentColor" stroke-width="0.7" stroke-dasharray="3 3"/>
+        <line x1="240" y1="170" x2="150" y2="200" stroke="currentColor" stroke-width="0.7" stroke-dasharray="3 3"/>
+        <line x1="60"  y1="50"  x2="20"  y2="110" stroke="currentColor" stroke-width="0.7" stroke-dasharray="3 3"/>
+        <line x1="60"  y1="170" x2="20"  y2="110" stroke="currentColor" stroke-width="0.7" stroke-dasharray="3 3"/>
+        <line x1="240" y1="50"  x2="280" y2="110" stroke="currentColor" stroke-width="0.7" stroke-dasharray="3 3"/>
+        <line x1="240" y1="170" x2="280" y2="110" stroke="currentColor" stroke-width="0.7" stroke-dasharray="3 3"/>
+        <!-- nodes -->
+        <circle cx="150" cy="110" r="10" fill="currentColor"/>
+        <circle cx="60"  cy="50"  r="6"  fill="currentColor" opacity="0.8"/>
+        <circle cx="240" cy="50"  r="6"  fill="currentColor" opacity="0.8"/>
+        <circle cx="60"  cy="170" r="6"  fill="currentColor" opacity="0.8"/>
+        <circle cx="240" cy="170" r="6"  fill="currentColor" opacity="0.8"/>
+        <circle cx="150" cy="20"  r="5"  fill="currentColor" opacity="0.6"/>
+        <circle cx="150" cy="200" r="5"  fill="currentColor" opacity="0.6"/>
+        <circle cx="20"  cy="110" r="4"  fill="currentColor" opacity="0.5"/>
+        <circle cx="280" cy="110" r="4"  fill="currentColor" opacity="0.5"/>
+      </svg>
+    </div>
     <div class="section-head">
       <h2>Built, not just designed</h2>
       <div class="count">01 prototype</div>
@@ -1010,7 +1470,39 @@ nav .meta { color: var(--ink-faint); }
   </section>
 
   <!-- TOOLS -->
-  <section class="tools">
+  <section class="tools" id="tools">
+    <!-- radar chart deco -->
+    <div class="section-deco" style="right:-20px;top:0px;width:280px;opacity:0.12;">
+      <svg viewBox="0 0 280 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- radar grid rings -->
+        <polygon points="140,30 230,85 230,195 140,250 50,195 50,85" stroke="currentColor" stroke-width="0.8" fill="none" opacity="0.5"/>
+        <polygon points="140,60 210,100 210,180 140,220 70,180 70,100" stroke="currentColor" stroke-width="0.8" fill="none" opacity="0.4"/>
+        <polygon points="140,90 190,115 190,165 140,190 90,165 90,115" stroke="currentColor" stroke-width="0.8" fill="none" opacity="0.3"/>
+        <!-- axis spokes -->
+        <line x1="140" y1="140" x2="140" y2="30"  stroke="currentColor" stroke-width="0.8" opacity="0.4"/>
+        <line x1="140" y1="140" x2="230" y2="85"  stroke="currentColor" stroke-width="0.8" opacity="0.4"/>
+        <line x1="140" y1="140" x2="230" y2="195" stroke="currentColor" stroke-width="0.8" opacity="0.4"/>
+        <line x1="140" y1="140" x2="140" y2="250" stroke="currentColor" stroke-width="0.8" opacity="0.4"/>
+        <line x1="140" y1="140" x2="50"  y2="195" stroke="currentColor" stroke-width="0.8" opacity="0.4"/>
+        <line x1="140" y1="140" x2="50"  y2="85"  stroke="currentColor" stroke-width="0.8" opacity="0.4"/>
+        <!-- data polygon -->
+        <polygon points="140,45 220,100 215,185 140,235 65,178 72,95" stroke="currentColor" stroke-width="2" fill="currentColor" fill-opacity="0.08"/>
+        <!-- data points -->
+        <circle cx="140" cy="45"  r="4" fill="currentColor"/>
+        <circle cx="220" cy="100" r="4" fill="currentColor"/>
+        <circle cx="215" cy="185" r="4" fill="currentColor"/>
+        <circle cx="140" cy="235" r="4" fill="currentColor"/>
+        <circle cx="65"  cy="178" r="4" fill="currentColor"/>
+        <circle cx="72"  cy="95"  r="4" fill="currentColor"/>
+        <!-- labels -->
+        <text x="140" y="22"  font-family="monospace" font-size="8" fill="currentColor" text-anchor="middle" opacity="0.7">ANALYTICS</text>
+        <text x="244" y="82"  font-family="monospace" font-size="8" fill="currentColor" opacity="0.7">AI</text>
+        <text x="236" y="204" font-family="monospace" font-size="8" fill="currentColor" opacity="0.7">PM</text>
+        <text x="140" y="266" font-family="monospace" font-size="8" fill="currentColor" text-anchor="middle" opacity="0.7">DATA</text>
+        <text x="20"  y="204" font-family="monospace" font-size="8" fill="currentColor" opacity="0.7">UX</text>
+        <text x="20"  y="82"  font-family="monospace" font-size="8" fill="currentColor" opacity="0.7">STRAT</text>
+      </svg>
+    </div>
     <div class="section-head">
       <h2>Tools of the trade</h2>
       <div class="count">14 tools &middot; 4 categories</div>
@@ -1153,10 +1645,26 @@ nav .meta { color: var(--ink-faint); }
   </section>
 
   <!-- CONTACT -->
-  <section class="contact">
+  <section class="contact" id="contact">
+    <!-- waveform / funnel deco -->
+    <div class="section-deco" style="right:-10px;top:10px;width:340px;opacity:0.1;">
+      <svg viewBox="0 0 340 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- funnel shape -->
+        <path d="M20 20 L320 20 L240 80 L240 160 L100 160 L100 80 Z" stroke="currentColor" stroke-width="1.5" fill="currentColor" fill-opacity="0.06"/>
+        <line x1="20"  y1="20"  x2="320" y2="20"  stroke="currentColor" stroke-width="1"/>
+        <line x1="55"  y1="50"  x2="285" y2="50"  stroke="currentColor" stroke-width="1" opacity="0.6"/>
+        <line x1="85"  y1="80"  x2="255" y2="80"  stroke="currentColor" stroke-width="1" opacity="0.5"/>
+        <line x1="100" y1="120" x2="240" y2="120" stroke="currentColor" stroke-width="1" opacity="0.4"/>
+        <!-- data labels -->
+        <text x="170" y="38"  font-family="monospace" font-size="8" fill="currentColor" text-anchor="middle" opacity="0.8">AWARENESS · 100%</text>
+        <text x="170" y="68"  font-family="monospace" font-size="8" fill="currentColor" text-anchor="middle" opacity="0.7">CONSIDERATION · 62%</text>
+        <text x="170" y="98"  font-family="monospace" font-size="8" fill="currentColor" text-anchor="middle" opacity="0.6">INTENT · 34%</text>
+        <text x="170" y="138" font-family="monospace" font-size="8" fill="currentColor" text-anchor="middle" opacity="0.5">CONVERT · 8%</text>
+      </svg>
+    </div>
     <div class="contact-grid">
       <div>
-        <h3>Let's <em>talk shop</em>.</h3>
+        <h3>Got a <em>problem to solve?</em></h3>
         <p>Open to PM and AI-PM conversations at product companies. Happiest when there's a funnel to fix, a roadmap to defend, or an experiment to ship.</p>
       </div>
       <div class="contact-links">
