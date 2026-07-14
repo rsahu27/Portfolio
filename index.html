@@ -126,9 +126,9 @@ body::before {
 }
 
 .container {
-  max-width: 940px;
+  /* Center a max ~1120px column in the space right of the fixed sidebar */
   margin: 0 0 0 264px;
-  padding: 0 56px 90px;
+  padding: 0 max(48px, calc((100vw - 264px - 1120px) / 2)) 90px;
   position: relative;
   z-index: 2;
 }
