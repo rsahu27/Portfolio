@@ -93,6 +93,46 @@ body::before {
   pointer-events: none;
 }
 
+/* ===================== AMBIENT BACKGROUND DIAGRAMS ===================== */
+/* Fixed layer behind all content (.container is z-index 2, sidebar is 10). */
+.bg-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  color: var(--accent);
+}
+.bg-canvas .fig {
+  position: absolute;
+  color: inherit;
+}
+.bg-canvas .fig svg { width: 100%; height: auto; display: block; }
+
+/* Individual figure placement (kept out of the sidebar's 264px column) */
+.fig-radar     { right: -70px;  bottom: -60px; width: 380px; opacity: 0.07; }
+.fig-wave      { left: 300px;   top: 44%;      width: 300px; opacity: 0.06; }
+.fig-candles   { left: 292px;   bottom: 40px;  width: 300px; opacity: 0.07; }
+.fig-scatter   { right: 6%;     top: 16%;      width: 260px; opacity: 0.06; }
+.fig-mesh      { right: -40px;  top: 46%;      width: 300px; opacity: 0.06; }
+.fig-donut     { left: 46%;     bottom: -50px; width: 220px; opacity: 0.05; }
+
+.js .bg-canvas .fig { animation: drift 22s ease-in-out infinite; }
+.js .fig-wave    { animation-delay: -4s;  animation-duration: 26s; }
+.js .fig-candles { animation-delay: -9s;  animation-duration: 30s; }
+.js .fig-scatter { animation-delay: -14s; animation-duration: 24s; }
+.js .fig-mesh    { animation-delay: -6s;  animation-duration: 28s; }
+.js .fig-donut   { animation-delay: -17s; animation-duration: 32s; }
+
+@keyframes drift {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50%      { transform: translate3d(0, -14px, 0); }
+}
+
+@media (max-width: 1100px) {
+  .fig-wave, .fig-candles, .fig-donut { display: none; }
+}
+
 /* ============================ REVEAL MOTION ============================ */
 .js .reveal {
   opacity: 0;
@@ -1077,6 +1117,116 @@ body::before {
 </style>
 </head>
 <body>
+
+<!-- Ambient background diagrams (decorative, behind all content) -->
+<div class="bg-canvas" aria-hidden="true">
+
+  <!-- Radar / concentric rings with sweep -->
+  <div class="fig fig-radar">
+    <svg viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="150" cy="150" r="140" stroke="currentColor" stroke-width="1"/>
+      <circle cx="150" cy="150" r="105" stroke="currentColor" stroke-width="1" opacity="0.8"/>
+      <circle cx="150" cy="150" r="70"  stroke="currentColor" stroke-width="1" opacity="0.6"/>
+      <circle cx="150" cy="150" r="35"  stroke="currentColor" stroke-width="1" opacity="0.4"/>
+      <line x1="10" y1="150" x2="290" y2="150" stroke="currentColor" stroke-width="0.8" opacity="0.5"/>
+      <line x1="150" y1="10" x2="150" y2="290" stroke="currentColor" stroke-width="0.8" opacity="0.5"/>
+      <line x1="51" y1="51" x2="249" y2="249" stroke="currentColor" stroke-width="0.6" opacity="0.35" stroke-dasharray="4 4"/>
+      <line x1="249" y1="51" x2="51" y2="249" stroke="currentColor" stroke-width="0.6" opacity="0.35" stroke-dasharray="4 4"/>
+      <path d="M150 150 L290 150 A140 140 0 0 0 249 51 Z" fill="currentColor" opacity="0.12"/>
+      <circle cx="212" cy="96"  r="4" fill="currentColor"/>
+      <circle cx="108" cy="196" r="3" fill="currentColor" opacity="0.7"/>
+      <circle cx="196" cy="214" r="3" fill="currentColor" opacity="0.6"/>
+    </svg>
+  </div>
+
+  <!-- Waveform / signal line -->
+  <div class="fig fig-wave">
+    <svg viewBox="0 0 300 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <line x1="0" y1="60" x2="300" y2="60" stroke="currentColor" stroke-width="0.6" opacity="0.4" stroke-dasharray="3 4"/>
+      <path d="M0 60 L28 60 L38 30 L48 88 L58 44 L70 60 L104 60 L114 22 L124 94 L134 52 L146 60 L182 60 L192 36 L202 84 L212 48 L224 60 L262 60 L272 34 L282 78 L292 60 L300 60"
+            stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+      <circle cx="114" cy="22" r="3.5" fill="currentColor"/>
+      <circle cx="272" cy="34" r="3" fill="currentColor" opacity="0.7"/>
+    </svg>
+  </div>
+
+  <!-- Candlestick / OHLC chart -->
+  <div class="fig fig-candles">
+    <svg viewBox="0 0 300 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <line x1="0" y1="150" x2="300" y2="150" stroke="currentColor" stroke-width="1"/>
+      <line x1="0" y1="40" x2="300" y2="40" stroke="currentColor" stroke-width="0.5" opacity="0.3" stroke-dasharray="4 4"/>
+      <line x1="0" y1="95" x2="300" y2="95" stroke="currentColor" stroke-width="0.5" opacity="0.3" stroke-dasharray="4 4"/>
+      <g stroke="currentColor" stroke-width="1.4">
+        <line x1="26"  y1="96"  x2="26"  y2="136"/><rect x="20"  y="106" width="12" height="22" fill="currentColor" opacity="0.35"/>
+        <line x1="62"  y1="78"  x2="62"  y2="124"/><rect x="56"  y="88"  width="12" height="26" fill="none"/>
+        <line x1="98"  y1="86"  x2="98"  y2="130"/><rect x="92"  y="98"  width="12" height="20" fill="currentColor" opacity="0.35"/>
+        <line x1="134" y1="58"  x2="134" y2="106"/><rect x="128" y="68"  width="12" height="28" fill="none"/>
+        <line x1="170" y1="66"  x2="170" y2="112"/><rect x="164" y="78"  width="12" height="22" fill="currentColor" opacity="0.35"/>
+        <line x1="206" y1="40"  x2="206" y2="88"/> <rect x="200" y="50"  width="12" height="28" fill="none"/>
+        <line x1="242" y1="48"  x2="242" y2="94"/> <rect x="236" y="60"  width="12" height="24" fill="currentColor" opacity="0.35"/>
+        <line x1="278" y1="24"  x2="278" y2="70"/> <rect x="272" y="32"  width="12" height="30" fill="none"/>
+      </g>
+    </svg>
+  </div>
+
+  <!-- Scatter plot with regression line -->
+  <div class="fig fig-scatter">
+    <svg viewBox="0 0 260 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <line x1="24" y1="8"   x2="24"  y2="176" stroke="currentColor" stroke-width="1"/>
+      <line x1="24" y1="176" x2="252" y2="176" stroke="currentColor" stroke-width="1"/>
+      <path d="M36 162 Q140 104 246 26" stroke="currentColor" stroke-width="1.4" stroke-dasharray="5 4" opacity="0.7"/>
+      <g fill="currentColor">
+        <circle cx="48"  cy="152" r="4"/><circle cx="72" cy="140" r="6"/>
+        <circle cx="96"  cy="126" r="3.5"/><circle cx="118" cy="112" r="7"/>
+        <circle cx="142" cy="96"  r="4.5"/><circle cx="166" cy="84" r="9"/>
+        <circle cx="190" cy="62"  r="5"/><circle cx="214" cy="50" r="6.5"/>
+        <circle cx="238" cy="32"  r="4"/>
+      </g>
+    </svg>
+  </div>
+
+  <!-- Node mesh / graph network -->
+  <div class="fig fig-mesh">
+    <svg viewBox="0 0 300 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g stroke="currentColor" stroke-width="0.9" opacity="0.65">
+        <line x1="150" y1="120" x2="60"  y2="52"/>
+        <line x1="150" y1="120" x2="248" y2="66"/>
+        <line x1="150" y1="120" x2="52"  y2="188"/>
+        <line x1="150" y1="120" x2="242" y2="196"/>
+        <line x1="150" y1="120" x2="150" y2="24"/>
+        <line x1="60"  y1="52"  x2="150" y2="24"/>
+        <line x1="248" y1="66"  x2="150" y2="24"/>
+        <line x1="52"  y1="188" x2="150" y2="220"/>
+        <line x1="242" y1="196" x2="150" y2="220"/>
+        <line x1="150" y1="120" x2="150" y2="220"/>
+        <line x1="60"  y1="52"  x2="52"  y2="188"/>
+        <line x1="248" y1="66"  x2="242" y2="196"/>
+      </g>
+      <g fill="currentColor">
+        <circle cx="150" cy="120" r="11"/>
+        <circle cx="60"  cy="52"  r="6" opacity="0.8"/>
+        <circle cx="248" cy="66"  r="6" opacity="0.8"/>
+        <circle cx="52"  cy="188" r="6" opacity="0.8"/>
+        <circle cx="242" cy="196" r="6" opacity="0.8"/>
+        <circle cx="150" cy="24"  r="5" opacity="0.6"/>
+        <circle cx="150" cy="220" r="5" opacity="0.6"/>
+      </g>
+    </svg>
+  </div>
+
+  <!-- Donut / ring chart -->
+  <div class="fig fig-donut">
+    <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="100" cy="100" r="72" stroke="currentColor" stroke-width="26" opacity="0.18"/>
+      <circle cx="100" cy="100" r="72" stroke="currentColor" stroke-width="26"
+              stroke-dasharray="180 452" stroke-linecap="butt" transform="rotate(-90 100 100)"/>
+      <circle cx="100" cy="100" r="72" stroke="currentColor" stroke-width="26" opacity="0.55"
+              stroke-dasharray="96 452" stroke-dashoffset="-186" stroke-linecap="butt" transform="rotate(-90 100 100)"/>
+      <circle cx="100" cy="100" r="44" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+    </svg>
+  </div>
+
+</div>
 
 <aside class="sidebar">
   <div class="sidebar-identity">
