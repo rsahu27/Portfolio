@@ -28,7 +28,6 @@
   --bg:            #080b12;
   --bg-panel:      #0f1524;
   --bg-elev:       #141d30;
-  --grid:          rgba(56, 189, 248, 0.05);
   --border:        rgba(148, 163, 184, 0.16);
   --border-bright: rgba(56, 189, 248, 0.45);
   --ink:           #e7eef8;
@@ -47,7 +46,6 @@
   --bg:            #eef3fa;
   --bg-panel:      #ffffff;
   --bg-elev:       #ffffff;
-  --grid:          rgba(29, 106, 229, 0.06);
   --border:        rgba(15, 23, 42, 0.12);
   --border-bright: rgba(29, 106, 229, 0.4);
   --ink:           #0c1524;
@@ -78,12 +76,9 @@ body {
   min-height: 100vh;
   position: relative;
   transition: background-color 0.4s ease, color 0.4s ease;
-  /* Dashboard grid + accent glow */
-  background-image:
-    radial-gradient(900px 500px at 78% -5%, var(--glow), transparent 70%),
-    linear-gradient(var(--grid) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
-  background-size: 100% 100%, 32px 32px, 32px 32px;
+  /* Accent glow */
+  background-image: radial-gradient(900px 500px at 78% -5%, var(--glow), transparent 70%);
+  background-size: 100% 100%;
   background-attachment: fixed;
 }
 
